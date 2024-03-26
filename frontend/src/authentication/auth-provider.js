@@ -26,7 +26,7 @@ async function login({ email, password }) {
   return data.body.token;
 }
 
-async function profile(token) {
+async function getProfile(token) {
   const result = await client(
     "profile",
     "POST",
@@ -40,6 +40,16 @@ async function profile(token) {
       firstName: result.body.firstName,
       lastName: result.body.lastName,
     },
+  };
+}
+
+async function updateProfile(body, token) {
+  const result = await client("profile", "PUT", body, {
+    Authorization: `Bearer ${token}`,
+  });
+  return {
+    status: result.status,
+    message: result.message,
   };
 }
 
@@ -60,4 +70,13 @@ async function client(endpoint, method, body, headers) {
   else return Promise.reject(data);
 }
 
-export { login, profile, logout, setToken, getToken, setUser, getUser };
+export {
+  login,
+  getProfile,
+  updateProfile,
+  logout,
+  setToken,
+  getToken,
+  setUser,
+  getUser,
+};

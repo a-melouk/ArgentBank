@@ -71,7 +71,7 @@ const StyledSubmitButton = styled.button`
 `;
 
 async function getUser(token) {
-  const profile = await auth.profile(token);
+  const profile = await auth.getProfile(token);
   return profile.user;
 }
 

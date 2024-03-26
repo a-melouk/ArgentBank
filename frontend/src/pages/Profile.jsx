@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getLoggedIn, getUser } from "../app/selectors";
+import * as auth from "../authentication/auth-provider";
 
 const StyledMain = styled.main`
   background-color: #12002b;
@@ -69,6 +70,25 @@ const StyledFormButton = styled(StyledButton)`
 const Profile = () => {
   const user = useSelector(getUser);
   const loggedIn = useSelector(getLoggedIn);
+  const dispatch = useDispatch();
+
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const body = {
+      firstName: data.get("firstName"),
+      lastName: data.get("lastName"),
+    };
+    try {
+      const updateName = await auth.updateProfile(body, auth.getToken());
+      if (updateName.status === 200) {
+        auth.setUser(body);
+        dispatch({ type: "SET_USER", payload: { user: body, loggedIn: true } });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   return (
     <StyledMain>
@@ -81,14 +101,18 @@ const Profile = () => {
             </h1>
           </StyledHeadingDiv>
           <StyledButton>Edit name</StyledButton>
-          <StyledForm>
+          <StyledForm onSubmit={handleSubmit}>
             <StyledFieldset>
               <StyledInput
                 type="text"
                 name="firstName"
-                value={user.firstName}
+                // value={user.firstName}
               />
-              <StyledInput type="text" name="lastName" value={user.lastName} />
+              <StyledInput
+                type="text"
+                name="lastName"
+                // value={user.lastName}
+              />
             </StyledFieldset>
             <StyledFormButton type="submit">Save</StyledFormButton>
             <StyledFormButton type="button">Cancel</StyledFormButton>
