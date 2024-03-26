@@ -8,7 +8,6 @@ import { useEffect, useState } from "react";
 import Error from "../components/Error";
 import { getLoggedIn } from "../app/selectors";
 import Spinner from "../components/Spinner";
-import { set } from "mongoose";
 
 const StyledMain = styled.main`
   background-color: #12002b;
