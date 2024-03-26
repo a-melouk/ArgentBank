@@ -1,26 +1,12 @@
-# Project title: ArgentBank
-
-# Front-end
-
-## Description
-
-This project is part of the OpenClassrooms curriculum and can be found [here](https://openclassrooms.com/fr/paths/516/projects/813/scenario).
-
-## Technologies Used
-
-- React 18
-- React Router
-- Fetch
-- Node
-- MongoDB
-
-# Argent Bank API Backend
+# Project #10 - Argent Bank API
 
 This codebase contains the code needed to run the backend for Argent Bank.
 
-## Prerequisites
+## Getting Started
 
-Argent Bank API uses the following tech stack:
+### Prerequisites
+
+Argent Bank uses the following tech stack:
 
 - [Node.js v12](https://nodejs.org/en/)
 - [MongoDB Community Server](https://www.mongodb.com/try/download/community)
@@ -35,35 +21,21 @@ node --version
 mongo --version
 ```
 
-### Instructions to run backend
+### Instructions
 
-1. Clone the repository to your local machine.
+1. Fork this repo
+1. Clone the repo onto your computer
+1. Open a terminal window in the cloned project
+1. Run the following commands:
 
-```
-git clone https://github.com/a-melouk/ArgentBank.git
-```
-
-2. Navigate to the backend directory.
-
-```
-cd ArgentBank/backend
-```
-
-3. Install the dependencies using npm install.
-
-```
+```bash
+# Install dependencies
 npm install
-```
 
-4. Start the development server with npm start.
-
-```
+# Start local dev server
 npm run dev:server
-```
 
-5. Populate the database with two users
-
-```
+# Populate database with two users
 npm run populate-db
 ```
 
@@ -91,22 +63,10 @@ Once you run the `populate-db` script, you should have two users in your databas
 
 To learn more about how the API works, once you have started your local environment, you can visit: http://localhost:3001/api-docs
 
-### Instructions to run frontend
+## Design Assets
 
-2. Navigate to the frontend directory.
+Static HTML and CSS has been created for most of the site and is located in: `/designs`.
 
-```
-cd ArgentBank/frontend
-```
+For some of the dynamic features, like toggling user editing, there is a mock-up for it in `/designs/wireframes/edit-user-name.png`.
 
-3. Install the dependencies using npm install.
-
-```
-npm install
-```
-
-4. Start the development server with npm start.
-
-```
-npm run dev
-```
+And for the API model that you will be proposing for transactitons, the wireframe can be found in `/designs/wireframes/transactions.png`.
