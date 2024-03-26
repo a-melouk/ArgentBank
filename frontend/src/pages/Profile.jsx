@@ -106,12 +106,12 @@ const Profile = () => {
               <StyledInput
                 type="text"
                 name="firstName"
-                // value={user.firstName}
+                defaultValue={user.firstName}
               />
               <StyledInput
                 type="text"
                 name="lastName"
-                // value={user.lastName}
+                defaultValue={user.lastName}
               />
             </StyledFieldset>
             <StyledFormButton type="submit">Save</StyledFormButton>
