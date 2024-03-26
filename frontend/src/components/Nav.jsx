@@ -75,7 +75,7 @@ const Nav = () => {
           <li>
             <NavLink href="/profile" onClick={handleClick}>
               <FontAwesomeIcon icon={faCircleUser} />
-              {user}
+              {user.firstName}
             </NavLink>
           </li>
           <li>

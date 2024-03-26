@@ -9,11 +9,11 @@ function setToken(token) {
 }
 
 function getUser() {
-  return localStorage.getItem("argentBank-user");
+  return JSON.parse(localStorage.getItem("argentBank-user"));
 }
 
 function setUser(user) {
-  localStorage.setItem("argentBank-user", user);
+  localStorage.setItem("argentBank-user", JSON.stringify(user));
 }
 
 async function logout() {
@@ -36,7 +36,10 @@ async function profile(token) {
     }
   );
   return {
-    user: result.body.firstName,
+    user: {
+      firstName: result.body.firstName,
+      lastName: result.body.lastName,
+    },
   };
 }
 
