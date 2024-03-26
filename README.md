@@ -1,7 +1,5 @@
 # Project title: ArgentBank
 
-# Front-end
-
 ## Description
 
 This project is part of the OpenClassrooms curriculum and can be found [here](https://openclassrooms.com/fr/paths/516/projects/813/scenario).
@@ -14,11 +12,11 @@ This project is part of the OpenClassrooms curriculum and can be found [here](ht
 - Node
 - MongoDB
 
-# Argent Bank API Backend
+## Argent Bank API Backend
 
 This codebase contains the code needed to run the backend for Argent Bank.
 
-## Prerequisites
+### Prerequisites
 
 Argent Bank API uses the following tech stack:
 
@@ -35,7 +33,7 @@ node --version
 mongo --version
 ```
 
-### Instructions to run backend
+#### Instructions to run backend
 
 1. Clone the repository to your local machine.
 
@@ -69,29 +67,31 @@ npm run populate-db
 
 Your server should now be running at http://locahost:3001 and you will now have two users in your MongoDB database!
 
-## Populated Database Data
+#### Populated Database Data
 
 Once you run the `populate-db` script, you should have two users in your database:
 
-### Tony Stark
+##### Tony Stark
 
 - First Name: `Tony`
 - Last Name: `Stark`
 - Email: `tony@stark.com`
 - Password: `password123`
 
-### Steve Rogers
+##### Steve Rogers
 
 - First Name: `Steve`,
 - Last Name: `Rogers`,
 - Email: `steve@rogers.com`,
 - Password: `password456`
 
-## API Documentation
+#### API Documentation
 
 To learn more about how the API works, once you have started your local environment, you can visit: http://localhost:3001/api-docs
 
-### Instructions to run frontend
+## ArgentBank Frontend
+
+#### Instructions to run frontend
 
 2. Navigate to the frontend directory.
 
