@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import logo from "../assets/argentBankLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleUser } from "@fortawesome/free-solid-svg-icons";
+import { faCircleUser, faSignOut } from "@fortawesome/free-solid-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import * as auth from "../authentication/auth-provider";
+import { useNavigate } from "react-router-dom";
+import { getLoggedIn, getUser } from "../app/selectors";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -32,18 +36,65 @@ const LogoImage = styled.img`
   width: 200px;
 `;
 
+const StyledList = styled.ul`
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
 const Nav = () => {
+  const user = useSelector(getUser);
+  const loggedIn = useSelector(getLoggedIn);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function handleSignOut(event) {
+    event.preventDefault();
+    dispatch({ type: "REMOVE_USER" });
+    auth.logout();
+    navigate("/login");
+  }
+
+  function handleClick(event) {
+    event.preventDefault();
+    if (loggedIn) navigate("/profile");
+    else navigate("/login");
+  }
+
+  window.addEventListener("storage", (event) => {
+    if (event.key === "argentBank-token" && !event.newValue)
+      handleSignOut(event);
+  });
+
   return (
     <StyledNav>
       <LogoImage src={logo} alt="Logo de ArgentBank" />
-      <ul>
-        <li>
-          <NavLink href="/login">
-            <FontAwesomeIcon icon={faCircleUser} />
-            Sign In
-          </NavLink>
-        </li>
-      </ul>
+      {loggedIn ? (
+        <StyledList>
+          <li>
+            <NavLink href="/profile" onClick={handleClick}>
+              <FontAwesomeIcon icon={faCircleUser} />
+              {user}
+            </NavLink>
+          </li>
+          <li>
+            <NavLink href="/login" onClick={handleSignOut}>
+              <FontAwesomeIcon icon={faSignOut} />
+              Sign Out
+            </NavLink>
+          </li>
+        </StyledList>
+      ) : (
+        <StyledList>
+          <li>
+            <NavLink href="/login" onClick={handleClick}>
+              <FontAwesomeIcon icon={faCircleUser} />
+              Sign In
+            </NavLink>
+          </li>
+        </StyledList>
+      )}
     </StyledNav>
   );
 };
