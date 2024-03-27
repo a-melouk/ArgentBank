@@ -5,7 +5,7 @@ import { faCircleUser, faSignOut } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import * as auth from "../authentication/auth-provider";
 import { useNavigate } from "react-router-dom";
-import { getLoggedIn, getUser } from "../app/selectors";
+import { getToken, getUser } from "../app/selectors";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -45,20 +45,21 @@ const StyledList = styled.ul`
 
 const Nav = () => {
   const user = useSelector(getUser);
-  const loggedIn = useSelector(getLoggedIn);
+  const token = useSelector(getToken);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleSignOut(event) {
     event.preventDefault();
     dispatch({ type: "REMOVE_USER" });
+    dispatch({ type: "REMOVE_TOKEN" });
     auth.logout();
     navigate("/login");
   }
 
   function handleClick(event) {
     event.preventDefault();
-    if (loggedIn) navigate("/profile");
+    if (token) navigate("/profile");
     else navigate("/login");
   }
 
@@ -70,7 +71,7 @@ const Nav = () => {
   return (
     <StyledNav>
       <LogoImage src={logo} alt="Logo de ArgentBank" />
-      {loggedIn ? (
+      {token ? (
         <StyledList>
           <li>
             <NavLink href="/profile" onClick={handleClick}>

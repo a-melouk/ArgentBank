@@ -2,8 +2,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 function Spinner() {
   return (
-    <div style={{ width: "25px", height: "25px" }}>
-      <ClipLoader color="#fff" size={25} />
+    <div style={{ width: "19px", height: "19px" }}>
+      <ClipLoader color="#fff" size={19} />
     </div>
   );
 }

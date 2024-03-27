@@ -1,22 +1,48 @@
 const API_URL = "http://localhost:3001/api/v1/user/";
 
 function getToken() {
-  return localStorage.getItem("argentBank-token");
+  return (
+    sessionStorage.getItem("argentBank-token") ||
+    localStorage.getItem("argentBank-token")
+  );
 }
 
-function setToken(token) {
-  localStorage.setItem("argentBank-token", token);
+function setToken(token, location) {
+  switch (location) {
+    case "session":
+      sessionStorage.setItem("argentBank-token", token);
+      break;
+    case "local":
+      localStorage.setItem("argentBank-token", token);
+      break;
+    default:
+      return;
+  }
 }
 
 function getUser() {
-  return JSON.parse(localStorage.getItem("argentBank-user"));
+  return (
+    JSON.parse(sessionStorage.getItem("argentBank-user")) ||
+    JSON.parse(localStorage.getItem("argentBank-user"))
+  );
 }
 
-function setUser(user) {
-  localStorage.setItem("argentBank-user", JSON.stringify(user));
+function setUser(user, location) {
+  switch (location) {
+    case "session":
+      sessionStorage.setItem("argentBank-user", JSON.stringify(user));
+      break;
+    case "local":
+      localStorage.setItem("argentBank-user", JSON.stringify(user));
+      break;
+    default:
+      return;
+  }
 }
 
 async function logout() {
+  sessionStorage.removeItem("argentBank-token");
+  sessionStorage.removeItem("argentBank-user");
   localStorage.removeItem("argentBank-token");
   localStorage.removeItem("argentBank-user");
 }

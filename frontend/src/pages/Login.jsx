@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Error from "../components/Error";
-import { getLoggedIn } from "../app/selectors";
+import { getToken } from "../app/selectors";
 import Spinner from "../components/Spinner";
 
 const StyledMain = styled.main`
@@ -79,7 +79,8 @@ function Login() {
   document.title = "Login";
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const loggedIn = useSelector(getLoggedIn);
+  const token = useSelector(getToken);
+  //used to check if a spinner is displayed
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState({
     username: null,
@@ -87,48 +88,67 @@ function Login() {
     other: null,
   });
 
+  //if user token exists in local storage, redirect to profile page
   useEffect(() => {
-    if (loggedIn) {
-      navigate("/profile");
-    }
-  }, [loggedIn, navigate]);
+    if (token) navigate("/profile");
+  }, [token, navigate]);
 
   async function handleSubmit(event) {
-    setLoading(true);
     event.preventDefault();
+    setLoading(true);
     const data = new FormData(event.target);
     const email = data.get("email");
     const password = data.get("password");
-    try {
-      const token = await auth.login({ email, password });
-      if (token) {
-        const user = await getUser(token);
-        dispatch({ type: "SET_USER", payload: { user: user, loggedIn: true } });
-        setLoading(false);
-        auth.setToken(token);
-        auth.setUser(user);
+    const remember = data.get("remember");
+    const loginPromise = new Promise((resolve, reject) => {
+      auth
+        .login({ email, password })
+        .then((token) => {
+          getUser(token).then((user) => {
+            if (remember) {
+              auth.setToken(token, "local");
+              auth.setUser(user, "local");
+            } else {
+              auth.setToken(token, "session");
+              auth.setUser(user, "session");
+            }
+            resolve({
+              token: token,
+              user: user,
+            });
+            setLoading(false);
+          });
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+
+    loginPromise
+      .then((response) => {
+        dispatch({ type: "SET_TOKEN", payload: { token: response.token } });
+        dispatch({ type: "SET_USER", payload: { user: response.user } });
         navigate("/profile");
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      if (error.message === "Error: User not found!")
-        setError({
-          ...error,
-          username: "User not found!",
-        });
-      else if (error.message === "Error: Password is invalid")
-        setError({
-          ...error,
-          password: "Password is invalid",
-        });
-      else {
-        setError({
-          ...error,
-          other: "An error occurred, please try again later",
-        });
+      })
+      .catch((error) => {
         setLoading(false);
-      }
-    }
+        if (error.message === "Error: User not found!")
+          setError({
+            ...error,
+            username: "User not found!",
+          });
+        else if (error.message === "Error: Password is invalid")
+          setError({
+            ...error,
+            password: "Password is invalid",
+          });
+        else {
+          setError({
+            ...error,
+            other: "An error occurred, please try again later",
+          });
+        }
+      });
   }
 
   return (

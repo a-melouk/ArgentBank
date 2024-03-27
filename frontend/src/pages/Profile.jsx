@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { getLoggedIn, getUser } from "../app/selectors";
+import { getToken, getUser } from "../app/selectors";
 import * as auth from "../authentication/auth-provider";
+import { useState } from "react";
 
 const StyledMain = styled.main`
   background-color: #12002b;
@@ -68,8 +69,9 @@ const StyledFormButton = styled(StyledButton)`
 `;
 
 const Profile = () => {
+  const [isEditing, setIsEditing] = useState(false);
   const user = useSelector(getUser);
-  const loggedIn = useSelector(getLoggedIn);
+  const token = useSelector(getToken);
   const dispatch = useDispatch();
 
   async function handleSubmit(event) {
@@ -80,47 +82,72 @@ const Profile = () => {
       lastName: data.get("lastName"),
     };
     try {
-      const updateName = await auth.updateProfile(body, auth.getToken());
+      const updateName = await auth.updateProfile(body, token);
       if (updateName.status === 200) {
         auth.setUser(body);
-        dispatch({ type: "SET_USER", payload: { user: body, loggedIn: true } });
+        dispatch({
+          type: "SET_USER",
+          payload: { user: body },
+        });
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsEditing(false);
     }
+  }
+
+  function handleEdit(event) {
+    event.preventDefault();
+    setIsEditing(true);
+  }
+
+  function handleCancel(event) {
+    event.preventDefault();
+    setIsEditing(false);
   }
 
   return (
     <StyledMain>
-      {loggedIn ? (
-        <StyledProfileDiv>
-          <StyledHeadingDiv>
-            <h1>Welcome back</h1>
-            <h1>
-              {user.firstName} {user.lastName} !
-            </h1>
-          </StyledHeadingDiv>
-          <StyledButton>Edit name</StyledButton>
-          <StyledForm onSubmit={handleSubmit}>
-            <StyledFieldset>
-              <StyledInput
-                type="text"
-                name="firstName"
-                defaultValue={user.firstName}
-              />
-              <StyledInput
-                type="text"
-                name="lastName"
-                defaultValue={user.lastName}
-              />
-            </StyledFieldset>
-            <StyledFormButton type="submit">Save</StyledFormButton>
-            <StyledFormButton type="button">Cancel</StyledFormButton>
-          </StyledForm>
-        </StyledProfileDiv>
-      ) : (
-        <h1>Vous devez vous connecter</h1>
-      )}
+      <StyledProfileDiv>
+        {token && !isEditing && (
+          <>
+            <StyledHeadingDiv>
+              <h1>Welcome back</h1>
+              <h1>
+                {user.firstName} {user.lastName} !
+              </h1>
+            </StyledHeadingDiv>
+            <StyledButton onClick={handleEdit}>Edit name</StyledButton>
+          </>
+        )}
+        {token && isEditing && (
+          <>
+            <StyledHeadingDiv>
+              <h1>Welcome back</h1>
+            </StyledHeadingDiv>
+            <StyledForm onSubmit={handleSubmit}>
+              <StyledFieldset>
+                <StyledInput
+                  type="text"
+                  name="firstName"
+                  defaultValue={user.firstName}
+                />
+                <StyledInput
+                  type="text"
+                  name="lastName"
+                  defaultValue={user.lastName}
+                />
+              </StyledFieldset>
+              <StyledFormButton type="submit">Save</StyledFormButton>
+              <StyledFormButton type="button" onClick={handleCancel}>
+                Cancel
+              </StyledFormButton>
+            </StyledForm>
+          </>
+        )}
+      </StyledProfileDiv>
+      {!token && <h1>Vous devez vous connecter</h1>}
     </StyledMain>
   );
 };
