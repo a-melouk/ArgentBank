@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getToken, getUser } from "../app/selectors";
 import * as auth from "../authentication/auth-provider";
 import { useState } from "react";
+import StyledButton from "../components/Button";
 
 const StyledMain = styled.main`
   background-color: #12002b;
@@ -26,17 +27,17 @@ const StyledHeadingDiv = styled.div`
   flex-direction: column;
 `;
 
-const StyledButton = styled.button`
-  background-color: #00bc77;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  display: flex;
-  font-weight: bold;
-  justify-content: center;
-  margin-top: 16px;
-  padding: 16px;
-`;
+// const StyledButton = styled.button`
+//   background-color: #00bc77;
+//   border-radius: 5px;
+//   color: #fff;
+//   cursor: pointer;
+//   display: flex;
+//   font-weight: bold;
+//   justify-content: center;
+//   margin-top: 16px;
+//   padding: 16px;
+// `;
 
 const StyledForm = styled.form`
   display: flex;

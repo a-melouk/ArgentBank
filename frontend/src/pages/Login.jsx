@@ -100,55 +100,41 @@ function Login() {
     const email = data.get("email");
     const password = data.get("password");
     const remember = data.get("remember");
-    const loginPromise = new Promise((resolve, reject) => {
-      auth
-        .login({ email, password })
-        .then((token) => {
-          getUser(token).then((user) => {
-            if (remember) {
-              auth.setToken(token, "local");
-              auth.setUser(user, "local");
-            } else {
-              auth.setToken(token, "session");
-              auth.setUser(user, "session");
-            }
-            resolve({
-              token: token,
-              user: user,
-            });
-            setLoading(false);
-          });
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
 
-    loginPromise
-      .then((response) => {
-        dispatch({ type: "SET_TOKEN", payload: { token: response.token } });
-        dispatch({ type: "SET_USER", payload: { user: response.user } });
-        navigate("/profile");
-      })
-      .catch((error) => {
-        setLoading(false);
-        if (error.message === "Error: User not found!")
-          setError({
-            ...error,
-            username: "User not found!",
-          });
-        else if (error.message === "Error: Password is invalid")
-          setError({
-            ...error,
-            password: "Password is invalid",
-          });
-        else {
-          setError({
-            ...error,
-            other: "An error occurred, please try again later",
-          });
-        }
-      });
+    try {
+      const token = await auth.login({ email, password });
+      const user = await getUser(token);
+      if (remember) {
+        auth.setToken(token, "local");
+        auth.setUser(user, "local");
+      } else {
+        auth.setToken(token, "session");
+        auth.setUser(user, "session");
+      }
+      setLoading(false);
+
+      dispatch({ type: "SET_TOKEN", payload: { token } });
+      dispatch({ type: "SET_USER", payload: { user } });
+      navigate("/profile");
+    } catch (error) {
+      setLoading(false);
+      if (error.message === "Error: User not found!")
+        setError({
+          ...error,
+          username: "User not found!",
+        });
+      else if (error.message === "Error: Password is invalid")
+        setError({
+          ...error,
+          password: "Password is invalid",
+        });
+      else {
+        setError({
+          ...error,
+          other: "An error occurred, please try again later",
+        });
+      }
+    }
   }
 
   return (
