@@ -27,18 +27,6 @@ const StyledHeadingDiv = styled.div`
   flex-direction: column;
 `;
 
-// const StyledButton = styled.button`
-//   background-color: #00bc77;
-//   border-radius: 5px;
-//   color: #fff;
-//   cursor: pointer;
-//   display: flex;
-//   font-weight: bold;
-//   justify-content: center;
-//   margin-top: 16px;
-//   padding: 16px;
-// `;
-
 const StyledForm = styled.form`
   display: flex;
   width: 100%;
@@ -148,7 +136,7 @@ const Profile = () => {
           </>
         )}
       </StyledProfileDiv>
-      {!token && <h1>Vous devez vous connecter</h1>}
+      {!token && <h1>You must login</h1>}
     </StyledMain>
   );
 };
