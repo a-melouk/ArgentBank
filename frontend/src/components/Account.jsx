@@ -37,10 +37,12 @@ const StyledAccountBalance = styled.span`
 const StyledButton = styled.button`
   background-color: #f8f8f8;
   color: #f8f8f8;
-  padding: 14px 21px;
+  padding: 8px;
   border-radius: 5px;
   background-color: #6458f5;
   border: none;
+  font-weight: bold;
+  width: 200px;
 `;
 
 const formatCurrency = (amount) => {
