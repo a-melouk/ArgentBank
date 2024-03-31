@@ -3,57 +3,79 @@ import { useDispatch, useSelector } from "react-redux";
 import { getToken, getUser } from "../app/selectors";
 import * as auth from "../authentication/auth-provider";
 import { useState } from "react";
-import StyledButton from "../components/Button";
+import Account from "../components/Account";
 
 const StyledMain = styled.main`
-  background-color: #12002b;
+  background-color: #dfe6ed;
   display: flex;
   flex-direction: column;
   flex: 1;
-  color: white;
+  color: #283845;
   align-items: center;
-  justify-content: center;
+
+  /* justify-content: center; */
 `;
 
 const StyledProfileDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 400px;
+  width: 100%;
+  box-sizing: border-box;
+  padding-inline: 32px;
+  margin-block: 32px;
+  gap: 8px;
 `;
 
 const StyledHeadingDiv = styled.div`
   display: flex;
   flex-direction: column;
+  /* max-height: 152px; */
+  gap: 8px;
 `;
 
 const StyledForm = styled.form`
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
 `;
 
 const StyledFieldset = styled.fieldset`
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 16px;
   border: none;
 `;
 
 const StyledInput = styled.input`
   border-radius: 5px;
-  color: #12002b;
+  color: #c3cfd9;
   font-size: 1.2rem;
-  height: 40px;
-  padding: 8px 16px;
-  width: 35%;
+  padding: 4px 8px;
+  width: 191px;
+  max-width: 23%;
 `;
 
-const StyledFormButton = styled(StyledButton)`
-  width: 30%;
-  height: 32px;
+const StyledFormButton = styled.button`
+  align-items: center;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #6458f5;
+  display: flex;
+  font-weight: bold;
+  height: 30px;
+  justify-content: center;
+  padding-block: 10px;
+  width: 114px;
+`;
+
+const StyledNameDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
   align-items: center;
 `;
 
@@ -101,38 +123,53 @@ const Profile = () => {
       <StyledProfileDiv>
         {token && !isEditing && (
           <>
-            <StyledHeadingDiv>
-              <h1>Welcome back</h1>
-              <h1>
-                {user.firstName} {user.lastName} !
-              </h1>
-            </StyledHeadingDiv>
-            <StyledButton onClick={handleEdit}>Edit name</StyledButton>
+            <StyledNameDiv>
+              <StyledHeadingDiv>
+                <h1>Welcome back</h1>
+                <h1>
+                  {user.firstName} {user.lastName} !
+                </h1>
+              </StyledHeadingDiv>
+              <StyledFormButton onClick={handleEdit}>
+                Edit name
+              </StyledFormButton>
+            </StyledNameDiv>
+            <Account accountName="Argent bank checking" balance={2082.79} />
+            <Account accountName="Argent bank savings" balance={10928.42} />
+            <Account accountName="Argent bank credit card" balance={184.3} />
           </>
         )}
+
         {token && isEditing && (
           <>
-            <StyledHeadingDiv>
-              <h1>Welcome back</h1>
-            </StyledHeadingDiv>
-            <StyledForm onSubmit={handleSubmit}>
-              <StyledFieldset>
-                <StyledInput
-                  type="text"
-                  name="firstName"
-                  defaultValue={user.firstName}
-                />
-                <StyledInput
-                  type="text"
-                  name="lastName"
-                  defaultValue={user.lastName}
-                />
-              </StyledFieldset>
-              <StyledFormButton type="submit">Save</StyledFormButton>
-              <StyledFormButton type="button" onClick={handleCancel}>
-                Cancel
-              </StyledFormButton>
-            </StyledForm>
+            <StyledNameDiv>
+              <StyledHeadingDiv>
+                <h1>Welcome back</h1>
+              </StyledHeadingDiv>
+              <StyledForm onSubmit={handleSubmit}>
+                <StyledFieldset>
+                  <StyledInput
+                    type="text"
+                    name="firstName"
+                    defaultValue={user.firstName}
+                  />
+                  <StyledInput
+                    type="text"
+                    name="lastName"
+                    defaultValue={user.lastName}
+                  />
+                </StyledFieldset>
+                <StyledFormButton type="submit" style={{ marginRight: 16 }}>
+                  Save
+                </StyledFormButton>
+                <StyledFormButton type="button" onClick={handleCancel}>
+                  Cancel
+                </StyledFormButton>
+              </StyledForm>
+            </StyledNameDiv>
+            <Account accountName="Argent bank checking" balance={2082.79} />
+            <Account accountName="Argent bank savings" balance={10928.42} />
+            <Account accountName="Argent bank credit card" balance={184.3} />
           </>
         )}
       </StyledProfileDiv>

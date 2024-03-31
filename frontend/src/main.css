@@ -89,7 +89,8 @@ main {
 
 h1 {
   font-size: 2em;
-  margin: 0.2em 0;
+  margin: 0;
+  /* margin: 0.2em 0; */
 }
 
 /* Grouping content
@@ -197,6 +198,11 @@ sup {
 
 img {
   border-style: none;
+}
+
+button {
+  border: none;
+  cursor: pointer;
 }
 
 /* Forms

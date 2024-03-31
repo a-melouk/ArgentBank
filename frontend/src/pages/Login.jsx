@@ -10,7 +10,7 @@ import { getToken } from "../app/selectors";
 import Spinner from "../components/Spinner";
 
 const StyledMain = styled.main`
-  background-color: #12002b;
+  background-color: #dfe6ed;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -22,6 +22,7 @@ const StyledLogin = styled.section`
   width: 300px;
   margin: 3rem auto 0px;
   padding: 2rem;
+  border-radius: 5px;
 `;
 
 const StyledForm = styled.form`
@@ -145,7 +146,7 @@ function Login() {
         <StyledForm onSubmit={handleSubmit}>
           <StyledInputWrapper>
             <StyledLabel htmlFor="email">Username</StyledLabel>
-            <StyledInput type="text" id="email" name="email" required />
+            <StyledInput type="email" id="email" name="email" required />
           </StyledInputWrapper>
           {error.username && <Error error={error.username} />}
           <StyledInputWrapper>
