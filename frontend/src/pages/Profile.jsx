@@ -4,6 +4,7 @@ import { getToken, getUser } from "../app/selectors";
 import * as auth from "../authentication/auth-provider";
 import { useState } from "react";
 import Account from "../components/Account";
+import StyledButton from "../components/Button";
 
 const StyledMain = styled.main`
   background-color: #dfe6ed;
@@ -59,15 +60,10 @@ const StyledInput = styled.input`
   max-width: 23%;
 `;
 
-const StyledFormButton = styled.button`
-  align-items: center;
+const StyledFormButton = styled(StyledButton)`
   background-color: #fff;
-  border-radius: 5px;
   color: #6458f5;
-  display: flex;
-  font-weight: bold;
   height: 30px;
-  justify-content: center;
   padding-block: 10px;
   width: 114px;
 `;
@@ -121,52 +117,48 @@ const Profile = () => {
   return (
     <StyledMain>
       <StyledProfileDiv>
-        {token && !isEditing && (
+        {token && (
           <>
-            <StyledNameDiv>
-              <StyledHeadingDiv>
-                <h1>Welcome back</h1>
-                <h1>
-                  {user.firstName} {user.lastName} !
-                </h1>
-              </StyledHeadingDiv>
-              <StyledFormButton onClick={handleEdit}>
-                Edit name
-              </StyledFormButton>
-            </StyledNameDiv>
-            <Account accountName="Argent bank checking" balance={2082.79} />
-            <Account accountName="Argent bank savings" balance={10928.42} />
-            <Account accountName="Argent bank credit card" balance={184.3} />
-          </>
-        )}
-
-        {token && isEditing && (
-          <>
-            <StyledNameDiv>
-              <StyledHeadingDiv>
-                <h1>Welcome back</h1>
-              </StyledHeadingDiv>
-              <StyledForm onSubmit={handleSubmit}>
-                <StyledFieldset>
-                  <StyledInput
-                    type="text"
-                    name="firstName"
-                    defaultValue={user.firstName}
-                  />
-                  <StyledInput
-                    type="text"
-                    name="lastName"
-                    defaultValue={user.lastName}
-                  />
-                </StyledFieldset>
-                <StyledFormButton type="submit" style={{ marginRight: 16 }}>
-                  Save
-                </StyledFormButton>
-                <StyledFormButton type="button" onClick={handleCancel}>
-                  Cancel
-                </StyledFormButton>
-              </StyledForm>
-            </StyledNameDiv>
+            <StyledHeadingDiv>
+              <h1>Welcome back</h1>
+            </StyledHeadingDiv>
+            {!isEditing ? (
+              <>
+                <StyledNameDiv>
+                  <h1>
+                    {user.firstName} {user.lastName} !
+                  </h1>
+                  <StyledFormButton onClick={handleEdit}>
+                    Edit name
+                  </StyledFormButton>
+                </StyledNameDiv>
+              </>
+            ) : (
+              <>
+                <StyledNameDiv>
+                  <StyledForm onSubmit={handleSubmit}>
+                    <StyledFieldset>
+                      <StyledInput
+                        type="text"
+                        name="firstName"
+                        defaultValue={user.firstName}
+                      />
+                      <StyledInput
+                        type="text"
+                        name="lastName"
+                        defaultValue={user.lastName}
+                      />
+                    </StyledFieldset>
+                    <StyledFormButton type="submit" style={{ marginRight: 16 }}>
+                      Save
+                    </StyledFormButton>
+                    <StyledFormButton type="button" onClick={handleCancel}>
+                      Cancel
+                    </StyledFormButton>
+                  </StyledForm>
+                </StyledNameDiv>
+              </>
+            )}
             <Account accountName="Argent bank checking" balance={2082.79} />
             <Account accountName="Argent bank savings" balance={10928.42} />
             <Account accountName="Argent bank credit card" balance={184.3} />

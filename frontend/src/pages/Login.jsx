@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Error from "../components/Error";
 import { getToken } from "../app/selectors";
 import Spinner from "../components/Spinner";
+import StyledButton from "../components/Button";
 
 const StyledMain = styled.main`
   background-color: #dfe6ed;
@@ -55,20 +56,15 @@ const StyledRememberLabel = styled.label`
   margin-left: 0.25rem;
 `;
 
-const StyledSubmitButton = styled.button`
-  display: flex;
-  width: 100%;
-  padding: 8px;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-top: 1rem;
-  border-color: #00bc77;
+const StyledSubmitButton = styled(StyledButton)`
   background-color: #00bc77;
+  border-color: #00bc77;
   color: #fff;
-  text-decoration: underline;
-  cursor: pointer;
-  justify-content: center;
+  font-size: 1.1rem;
   gap: 8px;
+  margin-top: 1rem;
+  padding: 8px;
+  text-decoration: underline;
 `;
 
 async function getUser(token) {

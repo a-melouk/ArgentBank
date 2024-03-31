@@ -1,14 +1,11 @@
 import styled from "styled-components";
 
 const StyledButton = styled.button`
-  background-color: #00bc77;
+  align-items: center;
   border-radius: 5px;
-  color: #fff;
   display: flex;
   font-weight: bold;
   justify-content: center;
-  margin-top: 16px;
-  padding: 16px;
 `;
 
 export default StyledButton;

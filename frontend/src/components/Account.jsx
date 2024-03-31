@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import StyledButton from "../components/Button";
 
 const StyledAccountArticle = styled.article`
   display: flex;
@@ -34,14 +35,10 @@ const StyledAccountBalance = styled.span`
   font-size: 2.5rem;
 `;
 
-const StyledButton = styled.button`
-  background-color: #f8f8f8;
-  color: #f8f8f8;
-  padding: 8px;
-  border-radius: 5px;
+const StyledViewButton = styled(StyledButton)`
   background-color: #6458f5;
-  border: none;
-  font-weight: bold;
+  color: #fff;
+  padding: 8px;
   width: 200px;
 `;
 
@@ -60,7 +57,7 @@ const Account = ({ accountName, balance }) => {
         <StyledAccountBalance>{formatCurrency(balance)}</StyledAccountBalance>
         <StyledAccountSpan>Available Balance</StyledAccountSpan>
       </StyledAccountDetails>
-      <StyledButton>View transactions</StyledButton>
+      <StyledViewButton>View transactions</StyledViewButton>
     </StyledAccountArticle>
   );
 };
