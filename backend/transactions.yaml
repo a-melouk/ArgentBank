@@ -27,7 +27,7 @@ paths:
         - application/json
       responses:
         "200":
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
@@ -70,10 +70,41 @@ securityDefinitions:
     name: Authorization
     in: header
 definitions:
+  AccountOverview:
+    type: object
+    properties:
+      accountId:
+        type: string
+        description: account id
+      accountName:
+        type: string
+        description: account name
+      balance:
+        type: number
+        description: account balance
+      currency:
+        type: string
+        description: account currency
+  AccountTransactions:
+    type: object
+    properties:
+      accountId:
+        type: string
+        description: account id
+      accountName:
+        type: string
+        description: account name
+      month:
+        type: string
+        description: month
+      transactions:
+        type: array
+        items:
+          $ref: "#/definitions/Transaction"
   Transaction:
     type: object
     properties:
-      id:
+      transactionId:
         type: string
         description: transaction id
       date:
@@ -97,21 +128,3 @@ definitions:
       notes:
         type: string
         description: transaction notes
-  TransactionsResponse:
-    type: object
-    properties:
-      month:
-        type: object
-        properties:
-          Argent bank checking:
-            type: array
-            items:
-              $ref: "#/definitions/Transaction"
-          Argent bank savings:
-            type: array
-            items:
-              $ref: "#/definitions/Transaction"
-          Argent bank credit card:
-            type: array
-            items:
-              $ref: "#/definitions/Transaction"
