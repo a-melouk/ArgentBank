@@ -95,8 +95,8 @@ paths:
           description: Transaction retrieved successfully
           schema:
             $ref: "#/definitions/Transaction"
-        "400":
-          description: Invalid Fields
+        "404":
+          description: Transaction not found
         "500":
           description: Internal Server Error
     put:
@@ -130,8 +130,8 @@ paths:
           description: Transaction updated successfully
           schema:
             $ref: "#/definitions/Transaction"
-        "400":
-          description: Invalid Fields
+        "404":
+          description: Transaction not found
         "500":
           description: Internal Server Error
     delete:
@@ -155,12 +155,10 @@ paths:
       produces:
         - application/json
       responses:
-        "200":
+        "204":
           description: Transaction deleted successfully
-          schema:
-            $ref: "#/definitions/Transaction"
-        "400":
-          description: Invalid Fields
+        "404":
+          description: Transaction not found
         "500":
           description: Internal Server Error
 securityDefinitions:
