@@ -76,6 +76,7 @@ const StyledNameDiv = styled.div`
 `;
 
 const Profile = () => {
+  document.title = "Argent Bank - Profile";
   const [isEditing, setIsEditing] = useState(false);
   const user = useSelector(getUser);
   const token = useSelector(getToken);
