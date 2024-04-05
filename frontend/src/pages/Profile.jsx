@@ -5,6 +5,7 @@ import * as auth from "../authentication/auth-provider";
 import { useState } from "react";
 import Account from "../components/Account";
 import StyledButton from "../components/Button";
+import Spinner from "../components/Spinner";
 
 const StyledMain = styled.main`
   background-color: #dfe6ed;
@@ -61,11 +62,12 @@ const StyledInput = styled.input`
 `;
 
 const StyledFormButton = styled(StyledButton)`
-  background-color: #fff;
-  color: #6458f5;
+  background-color: #2c3e50;
+  color: #fff;
   height: 30px;
   padding-block: 10px;
   width: 114px;
+  gap: 5px;
 `;
 
 const StyledNameDiv = styled.div`
@@ -81,8 +83,10 @@ const Profile = () => {
   const user = useSelector(getUser);
   const token = useSelector(getToken);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(event) {
+    setLoading(true);
     event.preventDefault();
     const data = new FormData(event.target);
     const body = {
@@ -99,9 +103,11 @@ const Profile = () => {
         });
       }
     } catch (error) {
+      setLoading(false);
       console.error(error);
     } finally {
       setIsEditing(false);
+      setLoading(false);
     }
   }
 
@@ -151,7 +157,7 @@ const Profile = () => {
                       />
                     </StyledFieldset>
                     <StyledFormButton type="submit" style={{ marginRight: 16 }}>
-                      Save
+                      Save {loading && <Spinner />}
                     </StyledFormButton>
                     <StyledFormButton type="button" onClick={handleCancel}>
                       Cancel
