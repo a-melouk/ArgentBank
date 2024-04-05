@@ -4,7 +4,6 @@ const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 const yaml = require("yamljs");
 const swaggerDocs = yaml.load("./swagger.yaml");
-const transactionsSwagger = yaml.load("transactions.yaml");
 const dbConnection = require("./database/connection");
 
 dotEnv.config();
@@ -28,11 +27,6 @@ app.use("/api/v1/user", require("./routes/userRoutes"));
 // API Documentation
 if (process.env.NODE_ENV !== "production") {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-  app.use(
-    "/transaction-docs",
-    swaggerUi.serve,
-    swaggerUi.setup(transactionsSwagger)
-  );
 }
 
 app.get("/", (req, res, next) => {
