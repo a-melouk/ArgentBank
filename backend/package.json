@@ -15,9 +15,9 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.21",
+    "nodemon": "^2.0.22",
     "swagger-ui-express": "^4.1.4",
-    "yamljs": "^0.3.0",
-    "nodemon": "^2.0.22"
+    "yamljs": "^0.3.0"
   },
   "scripts": {
     "dev:server": "nodemon ./server/server.js",
