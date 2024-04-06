@@ -1,14 +1,4 @@
 services:
-  # frontend:
-  #   build:
-  #     context: frontend
-  #   ports:
-  #     - 3000:80
-  #   networks:
-  #     - react-express
-  #   depends_on:
-  #     - backend
-
   backend:
     build:
       context: backend
@@ -22,20 +12,15 @@ services:
     environment:
       - NODE_PORT=3001
       - MONGO_URI=mongodb://mongo:27017/argentBankDB
-    # command: sh -c "sleep 10 && npm run populate-db"
 
   mongo:
     image: mongo:latest
-    # ports:
-    #   - 27018:27017 # Map container port 27017 to host port 27018
     volumes:
       - mongo_data:/data/db
-      - ./mongo-data:/data/json
     networks:
       - express-mongo
     expose:
       - 27017
-    # command: bash -c "mongod --bind_ip_all & sleep 5 && ./insert-data.sh"
     command: bash -c "mongod --bind_ip_all"
 
 networks:
