@@ -1,6 +1,7 @@
 const express = require("express");
 const dotEnv = require("dotenv");
 const cors = require("cors");
+const customCors = require("./cors");
 const swaggerUi = require("swagger-ui-express");
 const yaml = require("yamljs");
 const swaggerDocs = yaml.load("./swagger.yaml");
@@ -16,6 +17,7 @@ dbConnection();
 
 // Handle CORS issues
 app.use(cors());
+app.use(customCors());
 
 // Request payload middleware
 app.use(express.json());
