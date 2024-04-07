@@ -1,5 +1,6 @@
-// const API_URL = "https://argentbank-production.up.railway.app/api/v1/user/";
-const API_URL = "http://localhost:3001/api/v1/user/";
+const API_URL =
+  "https://argentbank-production-3bd9.up.railway.app/api/v1/user/";
+// const API_URL = "http://localhost:3001/api/v1/user/";
 
 function getToken() {
   return (
