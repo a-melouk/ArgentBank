@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const databaseUrl =
-  process.env.MONGO_URI || "mongodb://127.0.0.1:27017/argentBankDB";
+  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/argentBankDB";
 const axios = require("axios");
 const signupApi = "http://localhost:3001/api/v1/user/signup";
 
@@ -21,6 +21,7 @@ const users = [
 
 module.exports = async () => {
   try {
+    console.log(databaseUrl);
     await mongoose.connect(databaseUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
