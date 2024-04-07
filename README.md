@@ -4,24 +4,44 @@
 
 This project is part of the OpenClassrooms curriculum and can be found [here](https://openclassrooms.com/fr/paths/516/projects/813/scenario).
 
-## Technologies Used
+## 1.Technologies Used
 
 - React 18
 - React Router
 - Fetch
 - Node
 - MongoDB
+- Docker
 
-## Argent Bank API Backend
+## 2. Argent Bank API Backend
 
 This codebase contains the code needed to run the backend for Argent Bank.
 
-### Prerequisites
+### 2.1 Running the backend with Docker
+
+#### 2.1.1 Prerequisites for running it with Docker
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+
+#### 2.1.2 Starting the project
+
+- The `docker compose down` command will allow you to remove old images.
+- The `docker compose -f "compose.yaml" up -d --build ` command will allow you to build and run your image.
+- The `docker compose build --no-cache` command will allow you to build your image without using cache.
+- The `docker compose up` command will allow you to run your image.
+- The `docker compose down && docker compose build && docker compose up` command will allow you to delete old images, build new image and run it.
+
+Once the image is run, your server should now be running at http://localhost:3001 and you will now have two users in your MongoDB database!
+
+### 2.2 Running the backend without Docker
+
+#### 2.2.1 Prerequisites for running it without Docker
 
 Argent Bank API uses the following tech stack:
 
-- [Node.js v12](https://nodejs.org/en/)
-- [MongoDB Community Server](https://www.mongodb.com/try/download/community)
+- [Node.js v18](https://nodejs.org/en/)
+- [MongoDB Community Server v7](https://www.mongodb.com/try/download/community)
+- [MongoDB Shell v2](https://www.mongodb.com/try/download/shell)
 
 Please make sure you have the right versions and download both packages. You can verify this by using the following commands in your terminal:
 
@@ -30,10 +50,17 @@ Please make sure you have the right versions and download both packages. You can
 node --version
 
 # Check Mongo version
-mongo --version
+mongod --version
 ```
 
-#### Instructions to run backend
+Make sure also that Mongo server is running and have added MongoDB bin folder to your environnement variables. You can verify this by executing this command in your terminal:
+
+```bash
+# Check MongoDB server status
+mongosh --eval "db.serverStatus()"
+```
+
+#### 2.2.2 Starting the project
 
 1. Clone the repository to your local machine.
 
@@ -67,9 +94,9 @@ npm run populate-db
 
 Your server should now be running at http://locahost:3001 and you will now have two users in your MongoDB database!
 
-#### Populated Database Data
+### 2.3 Populated Database Data
 
-Once you run the `populate-db` script, you should have two users in your database:
+Once `populate-db` script is run successfully, you should have two users in your database:
 
 ##### Tony Stark
 
@@ -85,13 +112,13 @@ Once you run the `populate-db` script, you should have two users in your databas
 - Email: `steve@rogers.com`,
 - Password: `password456`
 
-#### API Documentation
+### 2.4 API Documentation
 
 To learn more about how the API works, once you have started your local environment, you can visit: http://localhost:3001/api-docs
 
 ## ArgentBank Frontend
 
-#### Instructions to run frontend
+### Instructions to run frontend
 
 2. Navigate to the frontend directory.
 

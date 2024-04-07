@@ -1,0 +1,31 @@
+services:
+  backend:
+    build:
+      context: backend
+    ports:
+      - 3001:3001
+    depends_on:
+      - mongo
+    networks:
+      - express-mongo
+      - react-express
+    environment:
+      - NODE_PORT=3001
+      - MONGO_URI=mongodb://mongo:27017/argentBankDB
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - express-mongo
+    expose:
+      - 27017
+    command: bash -c "mongod --bind_ip_all"
+
+networks:
+  react-express:
+  express-mongo:
+
+volumes:
+  mongo_data:
