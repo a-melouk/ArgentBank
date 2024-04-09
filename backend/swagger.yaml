@@ -112,7 +112,7 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user-accounts/all-accounts:
+  /user-accounts:
     post:
       security:
         - Bearer: []
@@ -137,7 +137,7 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user-accounts/account/{accountId}/month/{month}:
+  /user-accounts/{accountId}/month/{month}:
     post:
       security:
         - Bearer: []
@@ -172,7 +172,7 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user-accounts/transaction/{transactionId}:
+  /transactions/{transactionId}:
     post:
       security:
         - Bearer: []
